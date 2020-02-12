@@ -8,12 +8,23 @@ const ipcRenderer = electron.ipcRenderer || false;
 
 const Home = () => {
   const [result, setResult] = useState('no python result');
+  const [pythonBin, setPythonBin] = useState('');
 
   const onClick = () => {
     if (ipcRenderer) {
       ipcRenderer.send('run-python');
     }
   };
+  useEffect(() => {
+    if (ipcRenderer) {
+      const pythonEnv = ipcRenderer.sendSync('get-python-env');
+      console.log(pythonEnv)
+    }
+
+    return () => {
+      // componentWillUnmount()
+    };
+  }, []);
 
   useEffect(() => {
     if (ipcRenderer) {
@@ -44,7 +55,14 @@ const Home = () => {
           </Link>
         </p>
         <img src="/images/logo.png" />
-        <button onClick={onClick}>Click me</button>
+        <div>
+          <h3>Please choose your Cloudmesh python binary</h3>
+          <input type="file" id="file" name="file" onChange={(e) => console.log('python chosen', e.target.files[0].path)}/>
+        </div>
+        <div>
+          <button onClick={onClick}>Run Python</button>
+        </div>
+        <p>{result}</p>
       </div>
     </React.Fragment>
   );
