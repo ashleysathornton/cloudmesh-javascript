@@ -1,29 +1,32 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import Head from 'next/head';
 import Link from 'next/link';
 import electron from 'electron'
+import CloudmeshEnvChooser from "../components/CloudmeshEnvChooser";
 
 // prevent SSR webpacking
 const ipcRenderer = electron.ipcRenderer || false;
 
 const Home = () => {
-  const [result, setResult] = useState('no python result');
-  const [pythonBin, setPythonBin] = useState('');
+  const [result, setResult] = useState('nothing to report');
+  const [cmsBin, setCmsBin] = useState('');
 
-  const onClick = () => {
+  const inputRef = useRef(null)
+
+  const onClick = (evt) => {
     if (ipcRenderer) {
-      ipcRenderer.send('run-python');
+      ipcRenderer.send('run-cms', inputRef.current.value);
     }
   };
   useEffect(() => {
     if (ipcRenderer) {
-      const pythonEnv = ipcRenderer.sendSync('get-python-env');
-      console.log(pythonEnv)
+      const cmsBin = ipcRenderer.sendSync('get-cms-binary');
+      console.log("Got cmsBin=", cmsBin)
+      setCmsBin(cmsBin)
     }
 
-    return () => {
-      // componentWillUnmount()
-    };
+    // Cleanup the listener on unmount.
+    return () => { }
   }, []);
 
   useEffect(() => {
@@ -33,36 +36,41 @@ const Home = () => {
       });
     }
 
+    // Cleanup all listeners on unmount.
     return () => {
-      // componentWillUnmount()
       if (ipcRenderer) {
         ipcRenderer.removeAllListeners('result');
       }
     };
   }, []);
 
+  const onChange = (e) => {
+    if (ipcRenderer) {
+      const binary = e?.target?.files[0]?.path
+      if (binary) {
+        ipcRenderer.send('set-cms-binary', binary);
+        setCmsBin(binary)
+      }
+    }
+  }
+
+
   return (
     <React.Fragment>
       <Head>
-        <title>Home - Nextron (with-javascript)</title>
+        <title>Home - Cloudmesh</title>
         <meta httpEquiv="Content-Security-Policy" content="script-src 'self' 'unsafe-inline';" />
       </Head>
       <div>
-        <p>
-          ⚡ Electron + Next.js ⚡ -
-          <Link href="/next">
-            <a>Go to next page</a>
-          </Link>
-        </p>
-        <img src="/images/logo.png" />
+        <h2>Cloudmesh</h2>
         <div>
-          <h3>Please choose your Cloudmesh python binary</h3>
-          <input type="file" id="file" name="file" onChange={(e) => console.log('python chosen', e.target.files[0].path)}/>
+          <CloudmeshEnvChooser binPath={cmsBin} onChange={onChange}/>
         </div>
         <div>
-          <button onClick={onClick}>Run Python</button>
+          Enter your CMS command: <input type="text" ref={inputRef}/>
+          <button onClick={onClick}>Execute</button>
         </div>
-        <p>{result}</p>
+        <pre>{result}</pre>
       </div>
     </React.Fragment>
   );

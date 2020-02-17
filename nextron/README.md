@@ -1,41 +1,55 @@
-<p align="center"><img src="https://i.imgur.com/X7dSE68.png"></p>
+# Cloudmesh App
 
-## Usage
+## Overview
 
-### Create an App
+The Cloudmesh App is a frontend for interacting with Cloudmesh.
 
-```zsh
-# with `nextron`
-$ nextron init my-app --example with-javascript
+## User Guide
 
-# with npx
-$ npx create-nextron-app my-app --example with-javascript
+Add instructions here on how to download the binary files.
 
-# with yarn
-$ yarn create nextron-app my-app --example with-javascript
+## Developer Guide
 
-# with pnpx
-$ pnpx create-nextron-app my-app --example with-javascript
+### Requirements
+
+* Cloudmesh with cms command installed.
+* [Yarn](https://yarnpkg.com/)
+
+### Installation
+
+```bash
+git clone git@github.com:cloudmesh/cloudmesh-javascript.git
+cd cloudmesh-javascript
+git checkout feature/prototypes
+cd nextron
+yarn
 ```
 
-### Install Dependencies
+### Development with Hot Reloading
 
-```zsh
-$ cd my-app
+This command will start a development mode that allows for hot reloading of code changes.
+A test app with dev console should appear and reload with each edit of code.
 
-# using yarn or npm
-$ yarn (or `npm install`)
-
-# using pnpm
-$ pnpm install --shamefully-hoist
+```bash
+yarn run dev
 ```
 
-### Use it
+### Building Binaries
 
-```zsh
-# development mode
-$ yarn dev (or `npm run dev` or `pnpm run dev`)
+To build the application binaries for all architectures run the following.
 
-# production build
-$ yarn build (or `npm run build` or `pnpm run build`)
+```bash
+yarn run build:all
 ```
+
+This will produce binaries in the `dist` directory.  Mac binaries can only be build on
+OS X.
+
+Other targets include:
+
+```bash
+yarn run build:win32
+yarn run build:win64
+yarn run build:mac
+yarn run build:linux
+``` 

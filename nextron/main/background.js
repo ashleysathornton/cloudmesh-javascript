@@ -1,9 +1,8 @@
 import { app, ipcMain } from 'electron';
 import serve from 'electron-serve';
 import { createWindow } from './helpers';
-import { PythonShell } from 'python-shell';
-import path from 'path'
 import * as Store from 'electron-store'
+import CloudmeshWrapper from './cloudmeshWrapper'
 
 const isProd = process.env.NODE_ENV === 'production';
 
@@ -34,32 +33,42 @@ app.on('window-all-closed', () => {
   app.quit();
 });
 
-const store = new Store({ name: 'python' });
+// Init app data store.
+const store = new Store({ name: 'cloudmesh' });
 
-ipcMain.on('get-python-env', (event, arg) => {
-  event.returnValue = store.get('python') || {};
-});
+// Helper function for getting the Cloudmesh config from the store.
+const getCloudmeshConfig = (store) => store.get('cloudmesh') ?? {}
 
-ipcMain.on('set-python', (event, arg) => {
-  const pythonEnv = store.get('python') || {};
-  pythonEnv.push(arg)
-  store.set('python', pythonEnv);
-});
 
-ipcMain.on('run-python', (event, arg) => {
-  let results;
-  let options = {
-    mode: 'text',
-    pythonPath: '/Users/jogoodma/ENV3/bin/python',
-    pythonOptions: ['-u'], // get print results in real-time
-    scriptPath: path.join(app.getAppPath(),'python'),
-    // args: ['value1', 'value2', 'value3']
-  };
-  PythonShell.run('hello.py', options,  function  (err, results)  {
-    if  (err)  throw err;
-    console.log('hello.py finished.');
-    console.log('results', results);
-    event.sender.send('result', results);
-  });
-  event.sender.send('result', results);
+/**
+ * Event listener that returns the Cloudmesh binary path from the store.
+ */
+ipcMain.on('get-cms-binary', (event, arg) => {
+  const { cmsBin = 'cms' } = getCloudmeshConfig(store)
+  console.log("cmsBin = ", cmsBin)
+  event.returnValue = cmsBin
+})
+
+/**
+ * Event listener that sets the Cloudmesh config object in the store.
+ */
+ipcMain.on('set-cms-binary', (event, arg) => {
+  const cmsConfig = getCloudmeshConfig(store)
+  store.set('cloudmesh', { ...cmsConfig, cmsBin: arg})
+})
+
+/**
+ * Event listener that executes the Cloudmesh command and returns the output back to the UI.
+ */
+ipcMain.on('run-cms', (event, arg) => {
+  const cmsBin = getCloudmeshConfig(store)?.cmsBin ?? 'cms'
+  const cmw = new CloudmeshWrapper(cmsBin)
+  const args = {
+    cmsCommand: arg,
+    onStdout: (data) => {
+      event.sender.send('result', data.toString())
+    },
+    onError: (err) => console.log(`Error: ${err.message}`)
+  }
+  cmw.exec(args)
 });

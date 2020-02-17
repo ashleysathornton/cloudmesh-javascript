@@ -1,6 +1,6 @@
-appId: com.example.nextron
-productName: My Nextron App
-copyright: Copyright © 2018 Yoshihide Shiono
+appId: cloudmesh.github.io
+productName: Cloudmesh Dashboard
+copyright: Copyright © 2020 Indiana University
 directories:
   output: dist
   buildResources: resources
@@ -9,4 +9,5 @@ files:
     filter:
       - package.json
       - app
+extraResources: 'python'
 publish: null

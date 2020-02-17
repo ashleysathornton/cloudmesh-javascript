@@ -1,15 +1,21 @@
 {
   "private": true,
-  "name": "my-nextron-app",
-  "description": "My application description",
-  "version": "1.0.0",
-  "author": "Yoshihide Shiono <shiono.yoshihide@gmail.com>",
+  "name": "cloudmesh-ui",
+  "description": "An interface for Cloudmesh.",
+  "version": "0.1.0",
+  "author": "Josh Goodman <jogoodma@iu.edu>",
   "main": "app/background.js",
   "scripts": {
     "dev": "nextron",
     "build": "nextron build",
     "build:all": "nextron build --all",
-    "postinstall": "electron-builder install-app-deps"
+    "build:win32": "nextron build --win --ia32",
+    "build:win64": "nextron build --win --x64",
+    "build:mac": "nextron build --mac --x64",
+    "build:linux": "nextron build --linux",
+    "postinstall": "electron-builder install-app-deps",
+    "format": "prettier --write '{main,renderer}/**/*.{js,css}'",
+    "test": "jest"
   },
   "dependencies": {
     "electron-serve": "^0.4.1",
@@ -17,11 +23,26 @@
     "python-shell": "^1.0.8"
   },
   "devDependencies": {
+    "@babel/core": "^7.8.4",
+    "@babel/preset-env": "^7.8.4",
+    "babel-jest": "^25.1.0",
+    "babel-loader": "^8.0.6",
     "electron": "^8.0.0",
     "electron-builder": "^22.3.2",
+    "jest": "^25.1.0",
     "next": "^9.1.7",
     "nextron": "^5.14.4",
+    "prettier": "^1.19.1",
+    "prop-types": "^15.7.2",
     "react": "^16.12.0",
     "react-dom": "^16.12.0"
+  },
+  "prettier": {
+    "semi": true,
+    "trailingComma": "es5",
+    "singleQuote": true,
+    "jsxBracketSameLine": true,
+    "tabWidth": 2,
+    "printWidth": 80
   }
 }
