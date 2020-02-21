@@ -1,7 +1,7 @@
-# Clooudmesh Javascript GUI
+# Cloudmesh Javascript GUI
 
 * Josh
-* Akshay
+* Akshay Gupta, iitb.akshay@gmail.com
 * Gregor von Laszewski, laszewski@gmail.com
 
 
