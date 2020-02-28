@@ -1,14 +1,14 @@
-import CloudmeshWrapper from '../cloudmeshWrapper';
+import CloudmeshWrapper from '../cloudmeshWrapper'
 
 test('Object init', () => {
-  const cm = new CloudmeshWrapper();
-  expect(cm).toBeInstanceOf(CloudmeshWrapper);
-});
+  const cm = new CloudmeshWrapper()
+  expect(cm).toBeInstanceOf(CloudmeshWrapper)
+})
 
 test('cms command prop', () => {
-  let cm = new CloudmeshWrapper('cms');
-  expect(cm.cms).toBe('cms');
+  let cm = new CloudmeshWrapper('cms')
+  expect(cm.cms).toBe('cms')
 
-  cm = new CloudmeshWrapper('cmsd');
-  expect(cm.cms).toBe('cmsd');
-});
+  cm = new CloudmeshWrapper('cmsd')
+  expect(cm.cms).toBe('cmsd')
+})

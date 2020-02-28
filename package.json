@@ -35,10 +35,12 @@
     "prettier": "^1.19.1",
     "prop-types": "^15.7.2",
     "react": "^16.12.0",
-    "react-dom": "^16.12.0"
+    "react-dom": "^16.12.0",
+    "statman-stopwatch": "^2.11.1",
+    "stylelint": "^13.2.0"
   },
   "prettier": {
-    "semi": true,
+    "semi": false,
     "trailingComma": "es5",
     "singleQuote": true,
     "jsxBracketSameLine": true,

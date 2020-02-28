@@ -1,0 +1,31 @@
+Checkpoint	Iteration	Start Time (ms)	End time (ms)	Time elapsed (ms)
+App started pre UI paint 	1	0.09	121.71	121.62
+App started pre UI paint 	2	0.08	109.45	109.37
+App started pre UI paint 	3	0.08	104.05	103.97
+React Hello World Rendering	1	0.84	7.29	6.45
+React Hello World Rendering	2	0.82	7.17	6.35
+React Hello World Rendering	3	0.79	7.45	6.66
+App painted and ready	1	0.08	376.43	376.35
+App painted and ready	2	0.08	377.3	377.22
+App painted and ready	3	0.08	376.87	376.79
+Executing python w/ spawn	1	8260.79	8289.04	28.25
+Executing python w/ spawn	2	10421.66	10452.57	30.91
+Executing python w/ spawn	3	11958.68	11989.87	31.19
+Executing python w/ PythonShell	1	2763.74	2764.53	0.79
+Executing python w/ PythonShell	2	3922.33	3922.55	0.22
+Executing python w/ PythonShell	3	5028.64	5028.84	0.2
+Executing cms w/ spawn	1	1981.61	4148.25	2166.64
+Executing cms w/ spawn	2	5437.44	7548.38	2110.94
+Executing cms w/ spawn	3	8665.06	10791.59	2126.53
+Executing cms w/ PythonShell	1	11048.35	11049.49	1.14
+Executing cms w/ PythonShell	2	12291.07	12291.29	0.22
+Executing cms w/ PythonShell	3	13436	13436.2	0.2
+				
+Category	Average (ms)			
+App started pre UI paint 	111.6533333			
+React Hello World Rendering	6.486666667			
+App painted and ready	376.7866667			
+Executing python w/ spawn	30.11666667			
+Executing python w/ PythonShell	0.403333333			
+Executing cms w/ spawn	2134.703333			
+Executing cms w/ PythonShell	0.52			

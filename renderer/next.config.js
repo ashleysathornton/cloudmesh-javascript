@@ -3,4 +3,4 @@ module.exports = {
     Object.assign(config, {
       target: 'electron-renderer',
     }),
-};
+}
