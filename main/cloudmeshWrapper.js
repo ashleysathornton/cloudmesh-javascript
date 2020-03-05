@@ -1,4 +1,4 @@
-import { spawn } from 'child_process';
+import { spawn } from 'child_process'
 
 /**
  * Cloudmesh command wrapper.
@@ -10,7 +10,7 @@ class CloudmeshWrapper {
    * @param cms
    */
   constructor(cms = 'cms') {
-    this.cms = cms;
+    this.cms = cms
   }
 
   exec({
@@ -21,12 +21,12 @@ class CloudmeshWrapper {
     onError = () => {},
     onClose = () => {},
   }) {
-    const cms = spawn(this.cms, [cmsCommand, ...args]);
-    cms.stdout.on('data', data => onStdout(data));
-    cms.stderr.on('data', data => onStderr(data));
-    cms.on('error', error => onError(error));
-    cms.on('close', exitCode => onClose(exitCode));
+    const cms = spawn(this.cms, [cmsCommand, ...args])
+    cms.stdout.on('data', data => onStdout(data))
+    cms.stderr.on('data', data => onStderr(data))
+    cms.on('error', error => onError(error))
+    cms.on('close', exitCode => onClose(exitCode))
   }
 }
 
-export default CloudmeshWrapper;
+export default CloudmeshWrapper
