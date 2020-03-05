@@ -1,20 +1,5 @@
 # Cloudmesh Javascript GUI
 
-## Technology Evaluation
-
-### cloudmesh-gui
-
-* <https://github.com/cloudmesh/cloudmesh-gui/blob/master/README.md>
-
-```
-$ gui activate
-$ gui profile
-$ gui cloud CLOUD [--show]
-$ gui edit KEY [--show]
-```
-
-![Profile](images/profile.png)
-
 Cloudmesh Javascript GUI is a front end for the Cloudmesh system.
 
 ## Prior Art
