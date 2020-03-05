@@ -58,12 +58,12 @@ yarn run build:win32
 yarn run build:win64
 yarn run build:mac
 yarn run build:linux
-``` 
+```
 
 ## Contributors
 
 * Josh Goodman, jogoodma@iu.edu
-* Akshay
+* Akshay Gupta, guptaaks@iu.edu
 * Gregor von Laszewski, laszewski@gmail.com
 
 
